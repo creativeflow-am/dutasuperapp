@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CreativeFlow | UIN Siber Hub</title>
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --g-bg: #111314;
+      --g-surface: #1a1c1e;
+      --g-surface-variant: #282a2c;
+      --g-border: #303134;
+      --g-on-surface: #e3e3e3;
+      --g-on-surface-variant: #c4c7c5;
+      --g-primary: #a8c7fa;
+      --g-primary-container: #004a77;
+      --g-on-primary-container: #c2e7ff;
+      --g-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+      --g-radius: 1rem;
+      --g-header-bg: rgba(17, 19, 20, 0.85);
+    }
+
+    .light-mode {
+      --g-bg: #f8fafc;
+      --g-surface: #ffffff;
+      --g-surface-variant: #f1f5f9;
+      --g-border: #e2e8f0;
+      --g-on-surface: #0f172a;
+      --g-on-surface-variant: #64748b;
+      --g-primary: #3b82f6;
+      --g-primary-container: #eff6ff;
+      --g-on-primary-container: #1d4ed8;
+      --g-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      --g-header-bg: rgba(248, 250, 252, 0.85);
+    }
+
+    * {
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    body {
+      background-color: var(--g-bg);
+      color: var(--g-on-surface);
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Rail - Optimized to 72px */
+    .sidebar-rail {
+      width: 72px;
+      height: 100vh;
+      position: fixed;
+      left: 0; top: 0;
+      background: var(--g-bg);
+      border-right: 1px solid var(--g-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 16px;
+      z-index: 200;
+    }
+
+    .sidebar-item {
+      width: 52px; height: 52px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: var(--g-on-surface-variant);
+      cursor: pointer;
+    }
+
+    .sidebar-item:hover { background: var(--g-surface-variant); color: var(--g-on-surface); }
+    .sidebar-item.active { background: var(--g-primary-container); color: var(--g-on-primary-container); }
+    .sidebar-item i { font-size: 18px; margin-bottom: 2px; }
+    .sidebar-item span { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Top Bar - Optimized to 56px */
+    .top-bar {
+      height: 56px;
+      position: sticky;
+      top: 0;
+      background: var(--g-header-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex; align-items: center;
+      padding: 0 20px;
+      z-index: 150;
+      border-bottom: 1px solid var(--g-border);
+    }
+
+    .search-pill {
+      background: var(--g-surface-variant);
+      border-radius: 9999px;
+      height: 36px;
+      display: flex; align-items: center;
+      padding: 0 16px;
+      width: 100%; max-width: 480px;
+      margin: 0 auto;
+      border: 1px solid var(--g-border);
+    }
+
+    .search-pill input {
+      background: transparent; border: none; outline: none;
+      color: var(--g-on-surface); width: 100%; padding-left: 10px; font-size: 13px;
+    }
+
+    /* Bottom Nav - Optimized to 64px */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 64px; background: var(--g-header-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-top: 1px solid var(--g-border);
+      display: none;
+      z-index: 500;
+      padding-bottom: env(safe-area-inset-bottom);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .bottom-nav::-webkit-scrollbar { display: none; }
+
+    .bottom-nav-item {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--g-on-surface-variant);
+      min-width: 72px; height: 100%; flex-shrink: 0;
+      gap: 2px;
+    }
+    .bottom-nav-item.active { color: var(--g-primary); }
+    .bottom-nav-item i { font-size: 18px; }
+    .bottom-nav-item span { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .google-input {
+      background: var(--g-surface-variant) !important;
+      border: 1px solid var(--g-border) !important;
+      color: var(--g-on-surface) !important;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-rail { display: none; }
+      .bottom-nav { display: flex; justify-content: space-around; }
+      .main-content-wrapper { padding-left: 0 !important; padding-bottom: 72px !important; }
+      .top-bar { padding: 0 16px; }
+    }
+  </style>
+
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

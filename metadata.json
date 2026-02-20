@@ -1,0 +1,8 @@
+{
+  "name": "CreativeFlow Hub v10",
+  "description": "Professional Content & Team Management System with Google Sheets Database, Drive Storage, and Gemini AI Optimization.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
